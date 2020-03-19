@@ -9,7 +9,7 @@
 export default {
     name:'Code',
     methods: {
-        draw(show_num) {
+        draw(show_num){
             let _this=this;
             var canvas_width=_this.jquery('#canvas').width();
             var canvas_height=_this.jquery('#canvas').height();

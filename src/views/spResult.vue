@@ -2,7 +2,7 @@
     <div class=''>
         <el-row>
           <el-col :span="24">
-              <div class="nv">拍卖商品信息</div>
+              <div class="nv">我的拍卖</div>
           </el-col>
         </el-row>
         <el-row>

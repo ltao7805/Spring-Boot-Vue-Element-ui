@@ -7,45 +7,48 @@ import auction from '../views/auction.vue'
 import manager from '../views/spmanager.vue'
 import adds from '../views/addSp.vue'
 import results from '../views/spResult.vue'
+import upd from '../views/updateSp.vue'
+import jpai from '../views/jinpai.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/login',
-    name: 'login',
     component: login
   },
   {
     path: '/register',
-    name: 'register',
     component: register
   },
   {
     path: '/index',
-    name: 'index',
     component: index,
     children:[
       {
         path: '/index/auction',
-        name: 'auction',
         component: auction
       },
       {
         path: '/index/manager',
-        name: 'manager',
         component: manager
       },
       {
         path: '/index/adds',
-        name: 'adds',
         component: adds
       },
       {
         path: '/index/results',
-        name: 'results',
         component: results
       },
+      {
+        path: '/index/upd/:aid',
+        component: upd
+      },
+      {
+        path: '/index/jpai/:aid',
+        component: jpai
+      }
     ]
   },
 ]

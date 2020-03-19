@@ -17,7 +17,7 @@
                       <el-menu-item index="/index/manager" v-if="sp">拍卖商品管理</el-menu-item>
                       <el-menu-item index="/index/auction" v-if="!sp">商品竞拍</el-menu-item>
                       <el-menu-item index="/index/adds" v-if="sp">添加拍卖商品</el-menu-item>
-                      <el-menu-item index="/index/results" v-if="sp">拍卖商品信息</el-menu-item>
+                      <el-menu-item index="/index/results" v-if="!sp">拍卖商品信息</el-menu-item>
                       <div style="margin-top:10px"></div>
                     </el-menu>
                 </el-aside>

@@ -61,7 +61,7 @@ export default {
             if(_this.user.name=='' || _this.user.pwd=='' || _this.rpwd==''){
                 return;
             }
-            _this.$refs['regist'].validate((valid)=>{
+            _this.$refs['regist'].validate(valid=>{
               if(valid) {
                 _this.jquery.ajax({
                   url:'http://localhost:8080/api/pm/add',
@@ -69,7 +69,7 @@ export default {
                   dataType: 'json',
                   contentType: 'application/json',
                   data: JSON.stringify(_this.user),
-                  success(){
+                  success:data=>{
                     _this.$message({
                       message: '注册成功！',
                       type: 'success'

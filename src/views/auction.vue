@@ -2,18 +2,19 @@
     <div class=''>
         <el-row>
           <el-col :span="24">
-              <div class="nv">商品竞拍</div>
+              <div class="nv">竞拍商品列表</div>
           </el-col>
         </el-row>
         <el-row>
             <el-col :span="24">
-                <el-table :data="as.list" :header-cell-style="{backgroundColor:'#e4e7ed',color:'#763FF8'}">
+                <el-table :data="as.list" :header-cell-style="{backgroundColor:'#696969',color:'#fff'}">
                   <el-table-column align="center" v-for="temp in pms" :label="temp.name" :key="temp.name">
                       <template slot-scope="scope">
                           <span v-if="temp.values==0">
-                              <el-link type="danger" :underline="false">竞拍</el-link>
+                              <el-link type="danger" :underline="false" @click="jp(scope.row.aid)">竞拍</el-link>
                           </span>
-                          <span>{{scope.row[temp.values]}}</span>
+                          <span v-if="temp.values=='aname'|| temp.values=='describe'">{{scope.row[temp.values] | scpe}}</span>
+                          <span v-else>{{scope.row[temp.values]}}</span>
                       </template>
                   </el-table-column>
                 </el-table>
@@ -41,12 +42,15 @@ export default {
     },
     methods: {
         gotop(n,s){
-                this.jquery.getJSON(`http://localhost:8080/api/pm/allau/${n}/${s}`,(data)=>{
+                this.jquery.getJSON(`http://localhost:8080/api/pm/allau/${n}/${s}`,data=>{
                 this.as=data;
             });
         },
         change(num){
             this.gotop(num,this.as.pageSize);
+        },
+        jp(aid){
+            this.$router.push(`/index/jpai/${aid}`);
         }
     },
     mounted(){

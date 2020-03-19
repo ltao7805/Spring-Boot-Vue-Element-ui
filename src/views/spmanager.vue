@@ -11,11 +11,10 @@
                   <el-table-column align="center" v-for="temp in pms" :label="temp.name" :key="temp.name">
                       <template slot-scope="scope">
                           <span v-if="temp.values==0">
-                              <el-link type="success" :underline="false">修改</el-link>
+                              <el-link type="success" :underline="false" @click="oper('1',scope.row.aid)">修改</el-link>
                               <a style="margin-left:10px"></a>
-                              <el-link type="danger" :underline="false">删除</el-link>
+                              <el-link type="danger" :underline="false" @click="oper('2',scope.row.aid)">删除</el-link>
                           </span>
-                              <!-- <img :src="'http://localhost:8080/image/'+scope.row[temp.values]" style="width:30px;height:30px"/> -->
                           <span>{{scope.row[temp.values]}}</span>
                       </template>
                   </el-table-column>
@@ -40,17 +39,68 @@ export default {
         return {
             ass:[],
             pms:[{name:'名称',values:'aname'},{name:'描述',values:'describe'},{name:'开始时间',values:'starttime'},
-            {name:'结束时间',values:'endtime'},{name:'起拍价',values:'price'},{name:'操作',values:'0'}]
+            {name:'结束时间',values:'endtime'},{name:'起拍价',values:'price'},{name:'操作',values:'0'}],
+            pm:true,
         };
     },
     methods: {
         gotop(n,s){
-                this.jquery.getJSON(`http://localhost:8080/api/pm/allau/${n}/${s}`,(data)=>{
+                this.jquery.getJSON(`http://localhost:8080/api/pm/allau/${n}/${s}`,data=>{
                 this.ass=data;
             });
         },
         change(num){
             this.gotop(num,this.ass.pageSize);
+        },
+
+        oper(p,aid){
+            let _this=this;
+            _this.jquery.ajaxSettings.async=false;
+            //判断是否可操作
+            let ns= new Date().toLocaleString('chinese',{hour12:false});
+            let now= new Date(Date.parse(ns))
+            _this.jquery.getJSON(`http://localhost:8080/api/pm/stime/${aid}`,data=>{
+                let end= new Date(Date.parse(data.endtime));
+                let start= new Date(Date.parse(data.starttime));
+                if(start<now){
+                    _this.pm=false;
+                }else{
+                     _this.pm=true;
+                }
+            });
+            if(p=='1'){
+                //修改
+                if(_this.pm){
+                    _this.$router.push(`/index/upd/${aid}`);
+                }else{
+                    _this.$message({
+                        message:'已拍卖商品不可修改！',
+                        type:'warning'
+                    });
+                    return;
+                }
+            }else{
+                //删除
+                if(_this.pm){
+                    _this.$confirm('确认删除该商品？','温馨提示',{
+                        type:'error'
+                    }).then(()=>{
+                        _this.jquery.getJSON(`http://localhost:8080/api/pm/dele/${aid}`,data=>{
+                            _this.$message({
+                                message:'删除成功！',
+                                type:'success'
+                            });
+                            location.reload();
+                        })
+                    })
+                }else{
+                    _this.$message({
+                        message:'已拍卖商品不可删除！',
+                        type:'warning'
+                    });
+                    return;
+                }
+            }
         }
     },
     mounted(){
@@ -66,7 +116,10 @@ export default {
     font-weight:400;
     margin-bottom:10px;
     border-left: 3px solid rgb(33, 218, 33);
+    color:rgb(20, 187, 20);
     padding-left:1px;
+    background-color:rgb(33,218,33,0.2);
+    text-align:center;
 }
 </style>
 <style  scoped>

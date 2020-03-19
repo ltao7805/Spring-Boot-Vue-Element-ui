@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <router-view></router-view>
     <el-row>
       <el-col :span="9" :offset="7">
         <div style="margin-top:100px"></div>
@@ -74,7 +75,7 @@ export default {
                  dataType: 'json',
                  contentType: 'application/json',
                  data: JSON.stringify(_this.user),
-                 success(data){
+                 success:data=>{
                      if(data.length==0){
                         _this.$message({
                             message:'用户名或密码错误',

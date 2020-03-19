@@ -1,9 +1,9 @@
 <template>
     <div class=''>
         <el-row>
-          <el-col :span="24">
-              <div class="nv">添加商品</div>
-          </el-col>
+            <el-col :span="24">
+                <div class="nv">修改商品信息</div>
+            </el-col>
         </el-row>
         <el-row>
           <el-col :span="21" :offset="1">
@@ -17,12 +17,12 @@
                 </el-form-item>
                 <br>
                 <el-form-item label="拍卖时间:">
-                    <el-date-picker value-format="yyyy-MM-dd HH:mm:ss" v-model="sdtime" type="datetimerange" range-separator="至" start-placeholder="起始日期" end-placeholder="结束日期" align="right">
+                    <el-date-picker value-format="yyyy-MM-dd HH:mm:ss" @change="cgtime"  v-model="sdtime" type="datetimerange" range-separator="至" start-placeholder="起始日期" end-placeholder="结束日期" align="right">
                     </el-date-picker>
                 </el-form-item>
                 <br>
                 <el-form-item label="商品图片:">
-                    <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-change="cge">
+                    <el-upload action="#" list-type="picture-card" :auto-upload="false" :on-change="cge" :file-list="filelist">
                         <i slot="default" class="el-icon-plus"></i>
                         <div slot="file" slot-scope="{file}">
                             <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
@@ -44,7 +44,7 @@
                 <br>
                 <el-form-item>
                     <span style="margin-left: 200px"></span>
-                    <el-button style="width:120px" type="success" @click="add">添加</el-button>
+                    <el-button style="width:120px" type="success" @click="uupd">修改</el-button>
                 </el-form-item>
               </el-form>
           </el-col>
@@ -64,9 +64,10 @@ export default {
                 describe:'',
                 img:''
             },
-            sdtime:'',
+            sdtime:[],
             dy:false,
-            filelist:[]
+            filelist:[{url:'',name:''}],
+            time:false,
         };
     },
     methods: {
@@ -90,34 +91,50 @@ export default {
             }
              _this.jquery('.el-upload--picture-card').css('display','inline-block');
         },
-        add(){
+        uupd(){
             let _this=this;
-            //基础非空验证
-            if(this.sdtime=='' || this.auction.aname=='' || this.auction.price=='' || this.auction.describe=='' || this.filelist.length==0){
-                return;
+            if(!this.time){
+                //默认值不接受value-format,需转换类型 
+                this.auction.starttime=(new Date(this.sdtime[0]).toLocaleString('chinese',{hour12:false})).replace(/\//g,'-');
+                this.auction.endtime=(new Date(this.sdtime[1]).toLocaleString('chinese',{hour12:false})).replace(/\//g,'-');
+            }else{
+                this.auction.starttime=this.sdtime[0];
+                this.auction.endtime=this.sdtime[1];
             }
-            //组装数据
             this.auction.img=this.filelist[0].name;
-            this.auction.starttime=this.sdtime[0];
-            this.auction.endtime=this.sdtime[1];
-
             this.jquery.ajax({
-                url:'http://localhost:8080/api/pm/addp',
-                type: 'post',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: JSON.stringify(_this.auction),
-                success:()=>{
-                    _this.$message({
-                        message:'添加成功！',
-                        type:'success'
-                    });
-                    //刷新页面，相当于重置表单
-                    location.reload();
-                }
+                url:'http://localhost:8080/api/pm/update',
+                 type: 'post',
+                 dataType: 'json',
+                 contentType: 'application/json',
+                 data: JSON.stringify(_this.auction),
+                 success:data=>{
+                     _this.$message({
+                         message:'修改成功！',
+                         type:'success'
+                     });
+                     location.reload();
+                 }
             })
-            
+        },
+        cgtime(){
+            this.time=true;
         }
+    },
+    mounted(){
+        this.jquery('.el-upload--picture-card').css('display','none');
+    },
+    //在组件初始化之前
+    created(){
+        let aid= this.$route.params.aid;
+        this.jquery.getJSON(`http://localhost:8080/api/pm/info/${aid}`,data=>{
+            this.auction=data;
+            this.sdtime=[new Date(data.starttime),new Date(data.endtime)];
+            this.filelist[0].url='http://localhost:8080/image/'+data.img;
+            this.filelist[0].name=data.img;
+            
+        });
+        
     }
 }
 </script>
