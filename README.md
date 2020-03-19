@@ -34,4 +34,4 @@ We recommend that you use vs code to run your project
 
 ------
 
-If I am lucky enough to help you, please give me a start, thank you
+If I am lucky enough to help you, please give me a star, thank you
