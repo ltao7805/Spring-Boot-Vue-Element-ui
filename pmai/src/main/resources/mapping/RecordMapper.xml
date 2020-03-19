@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.pmai.dao.RecordMapper">
+  <resultMap id="BaseResultMap" type="com.my.pmai.pojo.Record">
+    <!--@mbg.generated-->
+    <!--@Table record-->
+    <result column="raid" jdbcType="INTEGER" property="raid" />
+    <result column="pricer" jdbcType="INTEGER" property="pricer" />
+    <result column="ruser" jdbcType="VARCHAR" property="ruser" />
+    <result column="timer" jdbcType="TIMESTAMP" property="timer" />
+  </resultMap>
+  <select id="queryTopPrice" resultType="Record">
+    SELECT pricer,ruser FROM `record` WHERE raid=#{aid} ORDER BY pricer DESC LIMIT 1
+  </select>
+  <insert id="addAuctionSp">
+    INSERT INTO `record` VALUES(#{record.raid},#{record.pricer},#{record.ruser},NOW())
+  </insert>
+</mapper>
