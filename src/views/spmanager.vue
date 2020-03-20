@@ -113,13 +113,17 @@ export default {
 .nv{
     color: #606266;
     font-size:14px;
-    font-weight:400;
+    font-weight:500;
     margin-bottom:10px;
-    border-left: 3px solid rgb(33, 218, 33);
-    color:rgb(20, 187, 20);
-    padding-left:1px;
-    background-color:rgb(33,218,33,0.2);
-    text-align:center;
+    padding-top:8px;
+    padding-bottom:8px;
+    border-left: 3px solid rgb(38, 187, 38);
+    color:rgb(66, 199, 84);
+    padding-left:10px;
+    background:transparent;
+    background-color:rgb(255, 255, 255,0.15);
+    text-align:left;
+    box-shadow: 0 0 5px 0;
 }
 </style>
 <style  scoped>
