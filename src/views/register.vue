@@ -64,7 +64,7 @@ export default {
             _this.$refs['regist'].validate(valid=>{
               if(valid) {
                 _this.jquery.ajax({
-                  url:'http://localhost:8080/api/pm/add',
+                  url:'http://www.ltao7805.xyz:8888/api/pm/add',
                   type: 'post',
                   dataType: 'json',
                   contentType: 'application/json',

@@ -42,7 +42,7 @@ export default {
     },
     methods: {
         gotop(n,s){
-                this.jquery.getJSON(`http://localhost:8080/api/pm/allau/${n}/${s}`,data=>{
+                this.jquery.getJSON(`http://www.ltao7805.xyz:8888/api/pm/allau/${n}/${s}`,data=>{
                 this.as=data;
             });
         },

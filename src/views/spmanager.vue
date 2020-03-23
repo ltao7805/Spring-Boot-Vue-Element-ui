@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         gotop(n,s){
-                this.jquery.getJSON(`http://localhost:8080/api/pm/allau/${n}/${s}`,data=>{
+                this.jquery.getJSON(`http://www.ltao7805.xyz:8888/api/pm/allau/${n}/${s}`,data=>{
                 this.ass=data;
             });
         },
@@ -59,7 +59,7 @@ export default {
             //判断是否可操作
             let ns= new Date().toLocaleString('chinese',{hour12:false});
             let now= new Date(Date.parse(ns))
-            _this.jquery.getJSON(`http://localhost:8080/api/pm/stime/${aid}`,data=>{
+            _this.jquery.getJSON(`http://www.ltao7805.xyz:8888/api/pm/stime/${aid}`,data=>{
                 let end= new Date(Date.parse(data.endtime));
                 let start= new Date(Date.parse(data.starttime));
                 if(start<now){
@@ -85,7 +85,7 @@ export default {
                     _this.$confirm('确认删除该商品？','温馨提示',{
                         type:'error'
                     }).then(()=>{
-                        _this.jquery.getJSON(`http://localhost:8080/api/pm/dele/${aid}`,data=>{
+                        _this.jquery.getJSON(`http://www.ltao7805.xyz:8888/api/pm/dele/${aid}`,data=>{
                             _this.$message({
                                 message:'删除成功！',
                                 type:'success'

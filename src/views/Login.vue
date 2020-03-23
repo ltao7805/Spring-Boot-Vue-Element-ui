@@ -70,7 +70,7 @@ export default {
 
             //Ajax
              _this.jquery.ajax({
-                 url:'http://localhost:8080/api/pm/login',
+                 url:'http://www.ltao7805.xyz:8888/api/pm/login',
                  type: 'post',
                  dataType: 'json',
                  contentType: 'application/json',

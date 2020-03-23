@@ -103,7 +103,7 @@ export default {
             }
             this.auction.img=this.filelist[0].name;
             this.jquery.ajax({
-                url:'http://localhost:8080/api/pm/update',
+                url:'http://www.ltao7805.xyz:8888/api/pm/update',
                  type: 'post',
                  dataType: 'json',
                  contentType: 'application/json',
@@ -127,10 +127,10 @@ export default {
     //在组件初始化之前
     created(){
         let aid= this.$route.params.aid;
-        this.jquery.getJSON(`http://localhost:8080/api/pm/info/${aid}`,data=>{
+        this.jquery.getJSON(`http://www.ltao7805.xyz:8888/api/pm/info/${aid}`,data=>{
             this.auction=data;
             this.sdtime=[new Date(data.starttime),new Date(data.endtime)];
-            this.filelist[0].url='http://localhost:8080/image/'+data.img;
+            this.filelist[0].url='http://www.ltao7805.xyz:8888/image/'+data.img;
             this.filelist[0].name=data.img;
             
         });

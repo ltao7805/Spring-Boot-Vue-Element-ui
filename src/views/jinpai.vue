@@ -9,7 +9,7 @@
           <el-col :span="24" style="border:1px solid #ccc;padding:5px;">
               <div>
                   <div class="imgy">
-                    <el-image v-if="auction.img" style="width:310px;height:238px" :src="'http://localhost:8080/image/'+auction.img" :preview-src-list="['http://localhost:8080/image/'+auction.img]" :fit="'cover'"></el-image>      
+                    <el-image v-if="auction.img" style="width:310px;height:238px" :src="'http://www.ltao7805.xyz:8888/image/'+auction.img" :preview-src-list="['http://www.ltao7805.xyz:8888/image/'+auction.img]" :fit="'cover'"></el-image>      
                     </div>
                     <div class="text">
                         <div>
@@ -146,7 +146,7 @@ export default {
 
             //成功
             this.jquery.ajax({
-                url:'http://localhost:8080/api/pm/addsp',
+                url:'http://www.ltao7805.xyz:8888/api/pm/addsp',
                 type: 'post',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -179,15 +179,15 @@ export default {
         let aid= this.$route.params.aid;
         this.presult.raid=aid;
         this.jquery.ajaxSettings.async=false;
-        this.jquery.getJSON(`http://localhost:8080/api/pm/info/${aid}`,data=>{
+        this.jquery.getJSON(`http://www.ltao7805.xyz:8888/api/pm/info/${aid}`,data=>{
             this.auction=data;
         });
 
-        this.jquery.getJSON(`http://localhost:8080/api/pm/record/${aid}`,data=>{
+        this.jquery.getJSON(`http://www.ltao7805.xyz:8888/api/pm/record/${aid}`,data=>{
             this.record=data;
         });
 
-        this.jquery.getJSON(`http://localhost:8080/api/pm/top/${aid}`,data=>{
+        this.jquery.getJSON(`http://www.ltao7805.xyz:8888/api/pm/top/${aid}`,data=>{
             this.top=data;
         })
 

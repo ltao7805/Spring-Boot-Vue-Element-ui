@@ -102,7 +102,7 @@ export default {
             this.auction.endtime=this.sdtime[1];
 
             this.jquery.ajax({
-                url:'http://localhost:8080/api/pm/addp',
+                url:'http://www.ltao7805.xyz:8888/api/pm/addp',
                 type: 'post',
                 dataType: 'json',
                 contentType: 'application/json',
